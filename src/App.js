@@ -16,7 +16,8 @@ class App extends Component {
 		userName: '',
 		userType: '',
 		userStatus: '',
-		modal: false,
+    modal: false,
+    
 
 		columns: [
 			{
@@ -90,6 +91,13 @@ class App extends Component {
 				cellStyle: {
 					color: 'white'
 				}
+      },
+      {
+				title: 'Name',
+				field: 'name',
+				cellStyle: {
+					color: 'white'
+				}
 			},
 			{
 				title: 'DATE',
@@ -104,63 +112,92 @@ class App extends Component {
 				cellStyle: {
 					color: 'white'
 				}
+      },
+      {
+				title: 'Status',
+				field: 'status',
+				cellStyle: {
+					color: 'white'
+				}
 			},
 		],
 		datas: [
 			{
-				id: 1000,
+        id: 1000,
         date:'22-4-2019',
-        detail:'example1'
+        detail:'example1',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 2000,
         date:'24-4-2019',
-        detail:'example2'
+        detail:'example2',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 3000,
         date:'26-4-2019',
-        detail:'example3'
+        detail:'example3',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 4000,
 			  date:'28-5-2019',
-        detail:'example4'
+        detail:'example4',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 5000,
 			  date:'29-6-2019',
-        detail:'example5'
+        detail:'example5',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 5000,
 			  date:'29-6-2019',
-        detail:'example6'
+        detail:'example6',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 6000,
 			  date:'29-6-2019',
-        detail:'example7'
+        detail:'example7',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 7000,
 			  date:'29-6-2019',
-        detail:'example8'
+        detail:'example8',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 8000,
 			  date:'29-6-2019',
-        detail:'example9'
+        detail:'example9',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 9000,
 			  date:'29-6-2019',
-        detail:'example10'
+        detail:'example10',
+        status:'approved',
+        name:'testing'
       },
       {
 				id: 10000,
 			  date:'29-6-2019',
-        detail:'example11'
+        detail:'example11',
+        status:'approved',
+        name:'testing'
 			},
 		
     ],
@@ -184,7 +221,8 @@ class App extends Component {
     ],
     in1:'',
     isSearch:false,
-    open:false
+    open:false,
+    detail:false
 	};
   handleChange = event => {
    this.setState({in1:event.target.value});
@@ -196,10 +234,12 @@ class App extends Component {
 
 	render() {
     let mt;
+    let det;
     if(this.state.isSearch===true){
     mt=(
+      <div style={{width: '26%'}}>
       <MaterialTable
-      onRowClick={()=>{this.setState({open:true})}}
+      onRowClick={()=>{this.setState({detail:true})}}
       title="Results"
       icons="ADD"
       columns={this.state.columns}
@@ -246,7 +286,62 @@ class App extends Component {
       }}
       
     />
+    </div>
     )
+  }
+  if(this.state.detail===true){
+    det=(
+      <div style={{width:'76%'}}>
+                  <MaterialTable
+                  onRowClick={()=>{this.setState({detail:true})}}
+                  title="Detail"
+                  icons="ADD"
+                  columns={this.state.columnss}
+                  data={this.state.datas}
+                  style={{ backgroundColor: '#e2ddf0', fontWeight: 'bold',borderStyle:'solid',borderWidth:'2px',borderRadius:'14px' }}
+                  options={{
+                    pageSize: 10,
+                    headerStyle: {
+                      backgroundColor: '#18262E',
+                      color: 'white'
+                    },
+                    searchFieldStyle: {
+                      color: 'black',
+                      // background:"green !important",
+                      paddingTop: '1%'
+                    },
+                    searchFieldAlignment: 'right',
+                    rowStyle: (x) => {
+                      if (x.tableData.id % 2) {
+                        return { backgroundColor: '#18262E', cursor: 'pointer' };
+                      } else {
+                        return { backgroundColor: '#24343d', cursor: 'pointer' };
+                      }
+                    },
+                    actionsCellStyle: {
+                      display: 'none'
+                    },
+                    actionsColumnIndex: {
+                      display: 'none'
+                    },
+                    cellStyle: {
+                      color: 'white'
+                    },
+                    filterCellStyle: {
+                      color: 'white'
+                    },
+                    paginationType: {
+                      color: 'white'
+                    },
+                    columnsButton: {
+                      display: false
+                    },
+                    loadingType: 'overlay'
+                  }}
+                  
+                />
+                </div>
+            )
   }
 		return (
 			<div className="animated fadeIn" style={{background:'white'}}>
@@ -475,88 +570,18 @@ class App extends Component {
 
       </Row>
 				<Row>
-					<Col md="8" style={{
-              width: '91%',
-              marginLeft: '4%',
-              marginTop:'4%'
-
+					<div  style={{
+              marginLeft: '0%',
+              marginTop:'1%',display:'flex'
+        
           }}>
-					{mt}
-					</Col>
+					{mt}{det}
+					</div>
 				</Row>
         </Row>  
 
 
-              <div>
-
-                
-                  <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className='modal'
-                    open={this.state.open}
-                    onClose={()=>{this.setState({open:false})}}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                      timeout: 500,
-                    }}
-                  >
-                    <Fade in={this.state.open}>
-                      <div className='paper'>
-                      <span   onClick={()=>{this.setState({open:false})}} style={{fontWeight:'bolder',fontSize:'20px',marginLeft:'94%'}}  >X</span>
-                      <MaterialTable
-      onRowClick={()=>{this.setState({open:true})}}
-      title="Results"
-      icons="ADD"
-      columns={this.state.columnss}
-      data={this.state.datas}
-      style={{ backgroundColor: '#e2ddf0', fontWeight: 'bold',borderStyle:'solid',borderWidth:'2px',borderRadius:'14px' }}
-      options={{
-        pageSize: 10,
-        headerStyle: {
-          backgroundColor: '#18262E',
-          color: 'white'
-        },
-        searchFieldStyle: {
-          color: 'black',
-          // background:"green !important",
-          paddingTop: '1%'
-        },
-        searchFieldAlignment: 'right',
-        rowStyle: (x) => {
-          if (x.tableData.id % 2) {
-            return { backgroundColor: '#18262E', cursor: 'pointer' };
-          } else {
-            return { backgroundColor: '#24343d', cursor: 'pointer' };
-          }
-        },
-        actionsCellStyle: {
-          display: 'none'
-        },
-        actionsColumnIndex: {
-          display: 'none'
-        },
-        cellStyle: {
-          color: 'white'
-        },
-        filterCellStyle: {
-          color: 'white'
-        },
-        paginationType: {
-          color: 'white'
-        },
-        columnsButton: {
-          display: false
-        },
-        loadingType: 'overlay'
-      }}
-      
-    />
-                      </div>
-                    </Fade>
-                  </Modal>
-                </div>
+            
           
 			</div>
 		);
