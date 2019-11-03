@@ -20,6 +20,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import axios from 'axios';
 
 class App extends Component {
 	state = {
@@ -28,6 +29,7 @@ class App extends Component {
 		userType: '',
 		userStatus: '',
     modal: false,
+    inData:[],
     
 
 		
@@ -174,8 +176,30 @@ class App extends Component {
     detail:false,
     detailID:0,
     detailData:{},
-    selectedDate:new Date('2014-08-18T21:11:54')
-	};
+    selectedDate:new Date('2014-08-18T21:11:54'),
+    in1Data:[]
+  };
+  componentDidMount=()=>{
+    this.getData();
+  }
+   getData= async()=>{
+    let x;
+    await  axios.get('/input')
+      .then(res=>{
+        console.log(res)
+        
+      
+          x=res.data;
+          console.log(x[0])
+          console.log(x[0].id)    
+          console.log(x[0].data)
+          var myJsonString = JSON.stringify(x[0].data);
+          console.log(myJsonString)
+          this.setState({inData:res,in1Data:x[0].data})
+      })
+
+      
+    }
   handleChange = event => {
    this.setState({in1:event.target.value});
 
@@ -189,7 +213,7 @@ class App extends Component {
     let det;
     if(this.state.isSearch===true){
     mt=(
-      <div style={{width: '35%'}}>
+      <div style={{width: '30%'}}>
       <MaterialTable
       onRowClick={(row,columns,event)=>{
         console.log(event)
@@ -206,6 +230,7 @@ class App extends Component {
       style={{ backgroundColor: '#e2ddf0', fontWeight: 'bold',borderStyle:'solid',borderWidth:'2px',borderRadius:'0px' }}
       options={{
         pageSize: 10,
+        maxBodyHeight:480, 
         headerStyle: {
           backgroundColor: '#18262E',
           color: 'white'
@@ -251,9 +276,9 @@ class App extends Component {
   if(this.state.detail===true){
     det=(
       <div style={{
-      width:'65%',
+      width:'70%',
       borderStyle: 'solid',
-    
+      overflowY: 'scroll',
       borderWidth: '2px',
       
       }}>
@@ -304,9 +329,10 @@ class App extends Component {
 			<div className="animated fadeIn" style={{background:'white'}}>
 
      <Row>
-   
+   {/*
       <Row>
         <Col>
+      
         <div style={{marginLeft:'33%',marginTop:'4%',marginBottom:'4%'}}>
               <span style={{fontWeight:'bolder',fontSize:'30px'}}>
                 Telemetry Home Page
@@ -314,12 +340,14 @@ class App extends Component {
         </div>      
         </Col>
         </Row>
-        <Row style={{borderStyle:'solid',borderWidth:'2px',background:'#e2ddf0'}}>
-            <div style={{marginLeft:'4%',display:'row'}}>
+    */}
 
+        <Row style={{borderStyle:'solid',borderWidth:'2px',background:'#e2ddf0'}}>
+            <div style={{marginLeft:'4%'}}> 
+             
           <div style={{display:'flex'}}>  
             <div>
-               <TextField
+               <TextField 
                     id="standard-select-currency"
                     select
                     label="Select"
@@ -334,7 +362,7 @@ class App extends Component {
                     helperText="Please select your currency"
                     margin="normal"
                   >
-                  {this.state.input1.map(option => (
+                  {this.state.in1Data.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -504,7 +532,7 @@ class App extends Component {
             </div> 
         </div>
         <div style={{marginBottom:'3%',height:'5%',marginTop:'2%'}}>
-                    <div style={{marginLeft:'79%',height: '74px'}}>
+                    <div style={{marginLeft:'79%',height: '33px'}}>
                       <Fab variant="extended" aria-label="like" onClick={this.onSearch}>
                            <FaSearch style={{paddingRight:'6px'}} /> 
                                 Search

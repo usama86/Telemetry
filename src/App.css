@@ -22,3 +22,7 @@ width: 200;
 .paper{
   border: 2px solid #000;
 }
+.MuiFormControl-marginNormal {
+  margin-top: 21px !important;
+  margin-bottom: 0px !important; 
+}
