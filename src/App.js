@@ -21,6 +21,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import axios from 'axios';
+import * as inData from './Services/Services';
 
 class App extends Component {
 	state = {
@@ -171,46 +172,103 @@ class App extends Component {
     ],
   
     in1:'',
+    in2:'',
+    in3:'',
+    in4:'',
+    in5:'',
+    in6:'',
+    in7:'',
+    in8:'',
     isSearch:false,
     open:false,
     detail:false,
     detailID:0,
     detailData:{},
     selectedDate:new Date('2014-08-18T21:11:54'),
-    in1Data:[]
+    selectedDate1:new Date('2014-08-18T21:11:54'),
+    in1Data:[],
+    in2Data:[],
+    in3Data:[],
+    in4Data:[],
+    in5Data:[],
+    in6Data:[],
+    in7Data:[],
+    in8Data:[],
+    recievedata:[]
+    
   };
   componentDidMount=()=>{
     this.getData();
   }
    getData= async()=>{
     let x;
-    await  axios.get('/input')
-      .then(res=>{
-        console.log(res)
-        
+    //send correct data here and it'll set it to the inputs
+    x=await inData.getAllInputData();
       
-          x=res.data;
-          console.log(x[0])
-          console.log(x[0].id)    
-          console.log(x[0].data)
-          var myJsonString = JSON.stringify(x[0].data);
-          console.log(myJsonString)
-          this.setState({inData:res,in1Data:x[0].data})
-      })
-
+       
+          console.log(x)
+          console.log(x[0].inp1)
+//console.log(x[0].id)    
+   //      console.log(x[0].data[0])
+  //        var myJsonString = JSON.stringify(x[0].data);
+   //      console.log(myJsonString)
+          this.setState({inData:x,in1Data:x[0].inp1})
+          this.setState({inData:x,in2Data:x[0].input2})
+          this.setState({inData:x,in3Data:x[0].input3})
+          this.setState({inData:x,in4Data:x[0].input4})
+          this.setState({inData:x,in5Data:x[0].input5})
+          this.setState({inData:x,in6Data:x[0].input6})
+          this.setState({inData:x,in7Data:x[0].input7})
+          this.setState({inData:x,in8Data:x[0].input8})
+   
       
     }
   handleChange = event => {
    this.setState({in1:event.target.value});
 
   };
-  onSearch=()=>{
+  onSearch=async ()=>{
+  var    in1=this.state.in1;
+  var      in2=this.state.in2;
+  var      in3=this.state.selectedDate;
+  var       in4=this.state.selectedDate1;
+  var       in5=this.state.in5;
+  var        in6=this.state.in6;
+  var        in7=this.state.in7;
+  var        in8=this.state.in8;
+if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
+{
+    var payload = {
+      
+      in1:this.state.in1,
+      in2:this.state.in2,
+      in3:this.state.selectedDate,
+      in4:this.state.selectedDate1,
+      in5:this.state.in5,
+      in6:this.state.in6,
+      in7:this.state.in7,
+      in8:this.state.in8,
+    };
+
+    let response = await inData.searchData(payload);
+    
+    //send correct data here and it'll set it to the result table
+    let x=response;
+    this.setState({recievedata:x})    
+
+
     this.setState({isSearch:true});
+
+  }
+  else{
+    alert('please select the input')
+  }
   }
 
 	render() {
     let mt;
     let det;
+    console.log(this.state.in1)
     if(this.state.isSearch===true){
     mt=(
       <div style={{width: '30%'}}>
@@ -226,7 +284,7 @@ class App extends Component {
       title="Results"
       icons="ADD"
       columns={this.state.columns}
-      data={this.state.data}
+      data={this.state.onSearch}
       style={{ backgroundColor: '#e2ddf0', fontWeight: 'bold',borderStyle:'solid',borderWidth:'2px',borderRadius:'0px' }}
       options={{
         pageSize: 10,
@@ -352,8 +410,8 @@ class App extends Component {
                     select
                     label="Select"
                     className='textfield'
-                    value={this.state.input1}
-                    onChange={this.state.handleChange}
+                    value={this.state.in1}
+                    onChange={(event)=>{this.setState({in1:event.target.value})}}
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
@@ -376,8 +434,8 @@ class App extends Component {
                     select
                     label="Select"
                     className='textfield'
-                    value={this.state.input1}
-                    onChange={this.state.handleChange}
+                    value={this.state.in2}
+                    onChange={(event)=>{this.setState({in2:event.target.value})}}
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
@@ -386,7 +444,7 @@ class App extends Component {
                     helperText="Please select your currency"
                     margin="normal"
                   >
-                  {this.state.input1.map(option => (
+                  {this.state.in2Data.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -422,8 +480,8 @@ class App extends Component {
                     margin="normal"
                     id="date-picker-inline"
                     label="Date picker inline"
-                    value={this.state.selectedDate}
-                    onChange={(date)=>{this.setState({selectedDate:date})}}
+                    value={this.state.selectedDate1}
+                    onChange={(date)=>{this.setState({selectedDate1:date})}}
                     KeyboardButtonProps={{
                       'aria-label': 'change date',
                     }}
@@ -440,8 +498,8 @@ class App extends Component {
                     select
                     label="Select"
                     className='textfield'
-                    value={this.state.input1}
-                    onChange={this.state.handleChange}
+                    value={this.state.in5}
+                    onChange={(event)=>{this.setState({in5:event.target.value})}}
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
@@ -450,7 +508,7 @@ class App extends Component {
                     helperText="Please select your currency"
                     margin="normal"
                   >
-                  {this.state.input1.map(option => (
+                  {this.state.in5Data.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -464,8 +522,8 @@ class App extends Component {
                     select
                     label="Select"
                     className='textfield'
-                    value={this.state.input1}
-                    onChange={this.state.handleChange}
+                    value={this.state.in6}
+                    onChange={(event)=>{this.setState({in6:event.target.value})}}
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
@@ -474,7 +532,7 @@ class App extends Component {
                     helperText="Please select your currency"
                     margin="normal"
                   >
-                  {this.state.input1.map(option => (
+                  {this.state.in6Data.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -488,8 +546,8 @@ class App extends Component {
                     select
                     label="Select"
                     className='textfield'
-                    value={this.state.input1}
-                    onChange={this.state.handleChange}
+                    value={this.state.in7}
+                    onChange={(event)=>{this.setState({in7:event.target.value})}}
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
@@ -498,7 +556,7 @@ class App extends Component {
                     helperText="Please select your currency"
                     margin="normal"
                   >
-                  {this.state.input1.map(option => (
+                  {this.state.in7Data.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -512,8 +570,8 @@ class App extends Component {
                     select
                     label="Select"
                     className='textfield'
-                    value={this.state.input1}
-                    onChange={this.state.handleChange}
+                    value={this.state.in8}
+                    onChange={(event)=>{this.setState({in8:event.target.value})}}
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
@@ -522,7 +580,7 @@ class App extends Component {
                     helperText="Please select your currency"
                     margin="normal"
                   >
-                  {this.state.input1.map(option => (
+                  {this.state.in8Data.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -532,7 +590,7 @@ class App extends Component {
             </div> 
         </div>
         <div style={{marginBottom:'3%',height:'5%',marginTop:'2%'}}>
-                    <div style={{marginLeft:'79%',height: '33px'}}>
+                    <div style={{marginLeft:'70%',height: '33px'}}>
                       <Fab variant="extended" aria-label="like" onClick={this.onSearch}>
                            <FaSearch style={{paddingRight:'6px'}} /> 
                                 Search
