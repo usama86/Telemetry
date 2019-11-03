@@ -106,14 +106,150 @@ class App extends Component {
     detailData:{},
     selectedDate:new Date('2014-08-18T21:11:54'),
     selectedDate1:new Date('2014-08-18T21:11:54'),
-    in1Data:[],
-    in2Data:[],
-    in3Data:[],
-    in4Data:[],
-    in5Data:[],
-    in6Data:[],
-    in7Data:[],
-    in8Data:[],
+    in1Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
+    in2Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
+    in3Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
+    in4Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
+    in5Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
+    in6Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
+    in7Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
+    in8Data:[
+      {
+        value: 'USD',
+        label: '$',
+      },
+      {
+        value: 'EUR',
+        label: '€',
+      },
+      {
+        value: 'BTC',
+        label: '฿',
+      },
+      {
+        value: 'JPY',
+        label: '¥',
+      },
+    ],
     recievedata:[],
     height:0
     
