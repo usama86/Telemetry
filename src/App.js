@@ -275,6 +275,7 @@ class App extends Component {
    //      console.log(x[0].data[0])
   //        var myJsonString = JSON.stringify(x[0].data);
    //      console.log(myJsonString)
+   /*
           this.setState({inData:x,in1Data:x[0].inp1})
           this.setState({inData:x,in2Data:x[0].input2})
           this.setState({inData:x,in3Data:x[0].input3})
@@ -283,6 +284,7 @@ class App extends Component {
           this.setState({inData:x,in6Data:x[0].input6})
           this.setState({inData:x,in7Data:x[0].input7})
           this.setState({inData:x,in8Data:x[0].input8})
+          */
    
       
     }
