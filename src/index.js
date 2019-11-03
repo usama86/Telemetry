@@ -7,7 +7,7 @@ import * as indexapp from './indexApp';
 import { runWithAdal } from 'react-adal';
 import { authContext } from './adalConfig';
  
-const DO_NOT_LOGIN = true;
+const DO_NOT_LOGIN = true;  //make it false if you want verification to work
  
 runWithAdal(authContext, () => {
  

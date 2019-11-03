@@ -26,3 +26,27 @@ width: 200;
   margin-top: 21px !important;
   margin-bottom: 0px !important; 
 }
+@media (max-width: 621px) {
+      .outerDiv,.lowerOuterDiv{
+        display: table-cell !important;
+      }
+      .text1,.text2,.text3,{
+        margin-left: 0px !important;
+      }
+      .text0,.text4,.text5,.text6,.searchBarMargin{
+        margin-left: 29px !important;
+      }
+      .tableWidth{
+        width: 43% !important;
+      }
+}
+@media (max-width: 400px) {
+  .tableWidth{
+    width:60% !important;
+  }
+  .detailInnerDiv{
+    width: 300px !important;
+  }
+
+}
+/*  @media (max-width: 450px) { */

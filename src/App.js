@@ -72,86 +72,6 @@ class App extends Component {
 				}
 			}, */
 		],
-		data: [
-			{
-        id: 1000,
-        date:'22-4-2019',
-        comments:'example1',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 2000,
-        date:'24-4-2019',
-        comments:'example2',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 3000,
-        date:'26-4-2019',
-        comments:'example3',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 4000,
-			  date:'28-5-2019',
-        comments:'example4',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 5000,
-			  date:'29-6-2019',
-        comments:'example5',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 5000,
-			  date:'29-6-2019',
-        comments:'example6',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 6000,
-			  date:'29-6-2019',
-        comments:'example7',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 7000,
-			  date:'29-6-2019',
-        comments:'example8',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 8000,
-			  date:'29-6-2019',
-        comments:'example9',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 9000,
-			  date:'29-6-2019',
-        comments:'example10',
-        status:'approved',
-        name:'testing'
-      },
-      {
-				id: 10000,
-			  date:'29-6-2019',
-        comments:'example11',
-        status:'approved',
-        name:'testing'
-			},
-		
-    ],
     input1: [
       {
         value: 'USD',
@@ -194,11 +114,18 @@ class App extends Component {
     in6Data:[],
     in7Data:[],
     in8Data:[],
-    recievedata:[]
+    recievedata:[],
+    height:0
     
   };
   componentDidMount=()=>{
     this.getData();
+    console.log(document.body.scrollHeight)
+    console.log(window.screen.height);
+    var height=window.screen.height;
+    var hnew=height*0.47;
+    console.log(hnew);
+    this.setState({height:hnew})
   }
    getData= async()=>{
     let x;
@@ -236,8 +163,9 @@ class App extends Component {
   var        in6=this.state.in6;
   var        in7=this.state.in7;
   var        in8=this.state.in8;
-if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
-{
+//if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
+//{
+  //add this if check if you want verification
     var payload = {
       
       in1:this.state.in1,
@@ -254,24 +182,25 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
     
     //send correct data here and it'll set it to the result table
     let x=response;
-    this.setState({recievedata:x})    
+    console.log(x);
+   this.setState({recievedata:x})    
 
 
     this.setState({isSearch:true});
 
-  }
-  else{
-    alert('please select the input')
-  }
+  //}
+ // else{
+ //   alert('please select the input')
+ // }
   }
 
 	render() {
-    let mt;
+    let mt; 
     let det;
-    console.log(this.state.in1)
+    console.log(this.state.in1) 
     if(this.state.isSearch===true){
-    mt=(
-      <div style={{width: '30%'}}>
+    mt=( 
+      <div className='tableWidth' style={{width: '30%'}}>
       <MaterialTable
       onRowClick={(row,columns,event)=>{
         console.log(event)
@@ -284,11 +213,11 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
       title="Results"
       icons="ADD"
       columns={this.state.columns}
-      data={this.state.onSearch}
+      data={this.state.recievedata}
       style={{ backgroundColor: '#e2ddf0', fontWeight: 'bold',borderStyle:'solid',borderWidth:'2px',borderRadius:'0px' }}
       options={{
         pageSize: 10,
-        maxBodyHeight:480, 
+        maxBodyHeight:this.state.height, 
         headerStyle: {
           backgroundColor: '#18262E',
           color: 'white'
@@ -351,7 +280,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
                 > Details</span>
             
             </div>
-         <div style={{background:'#e2ddf0',paddingTop:'22px',paddingBottom:'22px',marginTop:'77px'}}>    
+         <div className='detailInnerDiv' style={{background:'#e2ddf0',paddingTop:'22px',paddingBottom:'22px',marginTop:'77px'}}>    
             <div style={{marginLeft:'50px'}}>
                 <span >ID</span>
                 <span style={{marginLeft:'100px'}}>{this.state.detailData.id}</span>            
@@ -403,7 +332,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
         <Row style={{borderStyle:'solid',borderWidth:'2px',background:'#e2ddf0'}}>
             <div style={{marginLeft:'4%'}}> 
              
-          <div style={{display:'flex'}}>  
+          <div className='outerDiv' style={{display:'flex'}}>  
             <div>
                <TextField 
                     id="standard-select-currency"
@@ -428,7 +357,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
                   </TextField>
                   
             </div>
-            <div style={{marginLeft:'10%'}}>
+            <div style={{marginLeft:'10%'}} className='text1'>
                <TextField
                     id="standard-select-currency"
                     select
@@ -452,7 +381,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
                   </TextField>
                   
             </div>
-            <div style={{marginLeft:'10%'}}>
+            <div style={{marginLeft:'10%'}} className='text2'>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
                       disableToolbar
@@ -471,7 +400,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
             </MuiPickersUtilsProvider>
                   
             </div>
-            <div style={{marginLeft:'10%'}}>
+            <div style={{marginLeft:'10%'}} className='text3'>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     disableToolbar
@@ -491,8 +420,8 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
             </div>
            
          </div> 
-         <div style={{display:'flex'}}>
-         <div >
+         <div style={{display:'flex'}} className='lowerOuterDiv'>
+         <div className='text0'  >
                <TextField
                     id="standard-select-currency"
                     select
@@ -503,7 +432,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
-                      },
+                      }, 
                     }}
                     helperText="Please select your currency"
                     margin="normal"
@@ -516,7 +445,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
                   </TextField>
                   
             </div>
-            <div style={{marginLeft:'10%'}}>
+            <div className='text4' style={{marginLeft:'10%'}}>
                <TextField
                     id="standard-select-currency"
                     select
@@ -540,7 +469,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
                   </TextField>
                   
             </div>
-            <div style={{marginLeft:'10%'}}>
+            <div className='text5' style={{marginLeft:'10%'}}>
                <TextField
                     id="standard-select-currency"
                     select
@@ -564,7 +493,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
                   </TextField>
                   
             </div>
-            <div style={{marginLeft:'10%'}}>
+            <div className='text6' style={{marginLeft:'10%'}}>
                <TextField
                     id="standard-select-currency"
                     select
@@ -590,7 +519,7 @@ if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
             </div> 
         </div>
         <div style={{marginBottom:'3%',height:'5%',marginTop:'2%'}}>
-                    <div style={{marginLeft:'70%',height: '33px'}}>
+                    <div className='searchBarMargin' style={{marginLeft:'70%',height: '33px'}}>
                       <Fab variant="extended" aria-label="like" onClick={this.onSearch}>
                            <FaSearch style={{paddingRight:'6px'}} /> 
                                 Search
