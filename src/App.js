@@ -106,6 +106,16 @@ class App extends Component {
     detailData:{},
     selectedDate:new Date('2014-08-18T21:11:54'),
     selectedDate1:new Date('2014-08-18T21:11:54'),
+    input5Data:[
+      {
+        value: 'active',
+        label: 'Active',
+      },
+      {
+        value: 'archive',
+        label: 'Archive',
+      }
+    ],
     in1Data:[
       {
         value: 'USD',
@@ -275,16 +285,16 @@ class App extends Component {
    //      console.log(x[0].data[0])
   //        var myJsonString = JSON.stringify(x[0].data);
    //      console.log(myJsonString)
-   /*
+  /* 
           this.setState({inData:x,in1Data:x[0].inp1})
           this.setState({inData:x,in2Data:x[0].input2})
           this.setState({inData:x,in3Data:x[0].input3})
           this.setState({inData:x,in4Data:x[0].input4})
-          this.setState({inData:x,in5Data:x[0].input5})
+        //  this.setState({inData:x,in5Data:x[0].input5})
           this.setState({inData:x,in6Data:x[0].input6})
           this.setState({inData:x,in7Data:x[0].input7})
           this.setState({inData:x,in8Data:x[0].input8})
-          */
+        */  
    
       
     }
@@ -298,12 +308,17 @@ class App extends Component {
   var      in3=this.state.selectedDate;
   var       in4=this.state.selectedDate1;
   var       in5=this.state.in5;
+  console.log(in5)
   var        in6=this.state.in6;
   var        in7=this.state.in7;
   var        in8=this.state.in8;
-//if((in1 && in2 && in3 && in4 && in5 && in6 && in7 && in8) !== "")
-//{
-  //add this if check if you want verification
+if((in5) === "")
+{
+  alert('please select the Status(Active/Archive)');
+}
+else if((in5) === "active")
+{
+  
     var payload = {
       
       in1:this.state.in1,
@@ -315,8 +330,8 @@ class App extends Component {
       in7:this.state.in7,
       in8:this.state.in8,
     };
-
-    let response = await inData.searchData(payload);
+    
+    let response = await inData.getactivequeries(payload);
     
     //send correct data here and it'll set it to the result table
     let x=response;
@@ -325,18 +340,39 @@ class App extends Component {
 
 
     this.setState({isSearch:true});
+  }
+  else if((in5) === "archive")
+{
+    var payload = {
+      
+      in1:this.state.in1,
+      in2:this.state.in2,
+      in3:this.state.selectedDate,
+      in4:this.state.selectedDate1,
+      in5:this.state.in5,
+      in6:this.state.in6,
+      in7:this.state.in7,
+      in8:this.state.in8,
+    };
+    
+    let response = await inData.getarchivequeries(payload);
+   
+    //send correct data here and it'll set it to the result table
+    let x=response;
+    console.log(x);
+   this.setState({recievedata:x})    
 
-  //}
- // else{
- //   alert('please select the input')
- // }
+
+    this.setState({isSearch:true});
+  }
+ 
   }
 
 	render() {
     let mt; 
     let det;
     console.log(this.state.in1) 
-    if(this.state.isSearch===true){
+   
     mt=( 
       <div className='tableWidth' style={{width: '30%'}}>
       <MaterialTable
@@ -397,8 +433,8 @@ class App extends Component {
     />
     </div>
     )
-  }
-  if(this.state.detail===true){
+  
+
     det=(
       <div style={{
       width:'70%',
@@ -449,7 +485,7 @@ class App extends Component {
 
                 </div>
             )
-  }
+  
 		return (
 			<div className="animated fadeIn" style={{background:'white'}}>
 
@@ -566,7 +602,11 @@ class App extends Component {
                     label="Select"
                     className='textfield'
                     value={this.state.in5}
-                    onChange={(event)=>{this.setState({in5:event.target.value})}}
+                    onChange={(event)=>{
+                      this.setState({
+                      in5:event.target.value})
+                    console.log(event.target.value)
+                    }}
                     SelectProps={{
                       MenuProps: {
                         className: "inMenu", 
@@ -575,7 +615,7 @@ class App extends Component {
                     helperText="Please select your currency"
                     margin="normal"
                   >
-                  {this.state.in5Data.map(option => (
+                  {this.state.input5Data.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>

@@ -247,7 +247,7 @@ export const getAllInputData = payload => {
       });
   };
 
-  export const searchData = payload => {
+  export const getactivequeries = payload => {
     const URL = 'http://localhost:3000/data';
     return axios(URL, {
       method: 'POST',
@@ -266,5 +266,25 @@ export const getAllInputData = payload => {
         throw error;
       });
   };
+  export const getarchivequeries = payload => {
+    const URL = 'http://localhost:3000/data';
+    return axios(URL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json', // whatever you want
+      },
+      data: payload,
+    })
+      .then(response =>{
+        //change fake data to actual data
+        return(Fakedata)
+      }
+    
+    )
+      .catch(error => {
+        throw error;
+      });
+  };
+
 
 
