@@ -260,17 +260,23 @@ class App extends Component {
         label: '¥',
       },
     ],
+    userData:[
+      {
+        name:'Sababa Sababa'
+      },
+     ],
+    emPacketData:[{id:''}],
     recievedata:[],
     height:0
     
   };
   componentDidMount=()=>{
     this.getData();
-    console.log(document.body.scrollHeight)
-    console.log(window.screen.height);
+   // console.log(document.body.scrollHeight)
+  //  console.log(window.screen.height);
     var height=window.screen.height;
     var hnew=height*0.47;
-    console.log(hnew);
+  //  console.log(hnew);
     this.setState({height:hnew})
   }
    getData= async()=>{
@@ -279,13 +285,13 @@ class App extends Component {
     x=await inData.getAllInputData();
       
        
-          console.log(x)
-          console.log(x[0].inp1)
+       //   console.log(x)
+      //    console.log(x[0].inp1)
 //console.log(x[0].id)    
    //      console.log(x[0].data[0])
   //        var myJsonString = JSON.stringify(x[0].data);
    //      console.log(myJsonString)
-  /* 
+   
           this.setState({inData:x,in1Data:x[0].inp1})
           this.setState({inData:x,in2Data:x[0].input2})
           this.setState({inData:x,in3Data:x[0].input3})
@@ -294,7 +300,7 @@ class App extends Component {
           this.setState({inData:x,in6Data:x[0].input6})
           this.setState({inData:x,in7Data:x[0].input7})
           this.setState({inData:x,in8Data:x[0].input8})
-        */  
+          
    
       
     }
@@ -308,7 +314,7 @@ class App extends Component {
   var      in3=this.state.selectedDate;
   var       in4=this.state.selectedDate1;
   var       in5=this.state.in5;
-  console.log(in5)
+  
   var        in6=this.state.in6;
   var        in7=this.state.in7;
   var        in8=this.state.in8;
@@ -336,6 +342,8 @@ else if((in5) === "active")
     //send correct data here and it'll set it to the result table
     let x=response;
     console.log(x);
+ 
+
    this.setState({recievedata:x})    
 
 
@@ -359,7 +367,7 @@ else if((in5) === "active")
    
     //send correct data here and it'll set it to the result table
     let x=response;
-    console.log(x);
+    //console.log(x);
    this.setState({recievedata:x})    
 
 
@@ -371,17 +379,20 @@ else if((in5) === "active")
 	render() {
     let mt; 
     let det;
-    console.log(this.state.in1) 
+   // console.log(this.state.in1) 
    
     mt=( 
       <div className='tableWidth' style={{width: '30%'}}>
       <MaterialTable
       onRowClick={(row,columns,event)=>{
-        console.log(event)
-        console.log(row);
-        console.log(columns);
-        
-        this.setState({detail:true,detailData:columns})
+     //   console.log(event)
+     //   console.log(row);
+      console.log(columns);
+      let emPacketData=columns.empPacket;
+      console.log(emPacketData);
+    //  console.log(emPacketData.id);
+      console.log(emPacketData[0].id);
+        this.setState({detail:true,detailData:columns,emPacketData:emPacketData})
         
       }}
       title="Results"
@@ -441,14 +452,17 @@ else if((in5) === "active")
       borderStyle: 'solid',
       overflowY: 'scroll',
       borderWidth: '2px',
+      height:'478px'
       
       }}>
             <div style={{paddingTop:'4px'}}>
                 <span 
+                id='he1'
                 style={{
                   marginLeft: '45%',
                   fontWeight: 'bolder',
-                  fontSize: '30px'
+                  fontSize: '30px',
+                  cursor:'pointer'
                 }}
                 
                 > Details</span>
@@ -479,7 +493,360 @@ else if((in5) === "active")
                 <span>Status</span>
                 <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
             </div>
-          </div>      
+          </div>   
+        
+          <div style={{paddingTop:'4px'}}>
+                <span 
+                id='he1'
+                style={{
+                  marginLeft: '45%',
+                  fontWeight: 'bolder',
+                  fontSize: '30px',
+                  cursor:'pointer'
+                }}
+                
+                > empPacket</span>
+            
+            </div>
+          {this.state.emPacketData.map(data=>{
+            return(      
+          <div className='detailInnerDiv' style={{background:'#e2ddf0',paddingTop:'22px',paddingBottom:'22px',marginTop:'77px'}}>
+                
+            <div style={{marginLeft:'50px'}}>
+                <span >ID</span>
+                <span style={{marginLeft:'200px'}}>{data.id}</span>            
+            </div> 
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>ParentempId</span>
+                <span style={{marginLeft:'127px'}}>{data.ParentempId}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>PrimarycompanyId</span>
+                <span style={{marginLeft:'84px'}} >{data.PrimarycompanyId}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>PrimarycompanyName</span>
+                <span style={{marginLeft:'55px'}}>{data.PrimarycompanyName}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>Name</span>
+                <span style={{marginLeft:'173px'}}>{data.Name}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>User</span>
+                <span style={{marginLeft:'183px'}}>{data.User}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>empPacketStatus</span>
+                <span style={{marginLeft:'94px'}}>{data.empPacketStatus}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>RetrieveDate</span>
+                <span style={{marginLeft:'126px'}}>{data.RetrieveDate}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>IsCleanedUp</span>
+                <span style={{marginLeft:'120px'}}>{data.IsCleanedUp}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>IsEmailSent</span>
+                <span style={{marginLeft:'120px'}}>{data.IsEmailSent}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>cardOutputType</span>
+                <span style={{marginLeft:'105px'}}>{data.cardOutputType}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>cardType</span>
+                <span style={{marginLeft:'155px'}}>{data.cardType}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>st</span>
+                <span style={{marginLeft:'208px'}}>{data.st}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>SendEmail</span>
+                <span style={{marginLeft:'134px'}}>{data.SendEmail}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>SubmitDate</span>
+                <span style={{marginLeft:'121px'}}>{data.SubmitDate}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>PacketCreatedDate</span>
+                <span style={{marginLeft:'70px'}}>{data.PacketCreatedDate}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>Comments</span>
+                <span style={{marginLeft:'129px'}}>{data.Comments}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>cardName</span>
+                <span style={{marginLeft:'130px'}}>{data.cardName}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>MQR</span>
+                <span style={{marginLeft:'169px'}}>{data.MQR}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>rspn</span>
+                <span style={{marginLeft:'177px'}}>{data.rspn}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>iri</span>
+                <span style={{marginLeft:'194px'}}>{data.iri}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>employees</span>
+                <span style={{marginLeft:'131px'}}>{data.employees}</span>            
+            </div>
+          </div>   
+          )})}
+          <div style={{paddingTop:'4px'}}>
+                <span 
+                id='he1'
+                style={{
+                  marginLeft: '45%',
+                  fontWeight: 'bolder',
+                  fontSize: '30px',
+                  cursor:'pointer'
+                }}
+                
+                > MQR</span>
+            
+            </div>
+          <div className='detailInnerDiv' style={{background:'#e2ddf0',paddingTop:'22px',paddingBottom:'22px',marginTop:'77px'}}>    
+            <div style={{marginLeft:'50px'}}>
+                <span >cardEditType</span>
+                <span style={{marginLeft:'100px'}}>{this.state.detailData.id}</span>            
+            </div> 
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>SourceType</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.name}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>empRunType</span>
+                <span style={{marginLeft:'85px'}} >{this.state.detailData.date}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>cardOutputType</span>
+                <span style={{marginLeft:'42px'}}>{this.state.detailData.comments}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>User</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>PrimarycompanyName</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>PrimarycompanyId</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>id</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>IsGenerateemp</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>cardName</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>WorkSheetName</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>cardLocation</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>OfficeVErsion</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>Version</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>UserAndDomainName</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>cardPacket</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>UserSelectedempServerName</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>SendEmail</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>IsExecute</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>sod</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+          </div>  
+
+     
+          <div style={{paddingTop:'4px'}}>
+                <span 
+                id='he1'
+                style={{
+                  marginLeft: '45%',
+                  fontWeight: 'bolder',
+                  fontSize: '30px',
+                  cursor:'pointer'
+                }}
+                
+                > emp</span>
+            
+            </div>
+          <div className='detailInnerDiv' style={{background:'#e2ddf0',paddingTop:'22px',paddingBottom:'22px',marginTop:'77px'}}>    
+            <div style={{marginLeft:'50px'}}>
+                <span >Statement</span>
+                <span style={{marginLeft:'100px'}}>{this.state.detailData.id}</span>            
+            </div> 
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>PreStatementList</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.name}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>PostStatementList</span>
+                <span style={{marginLeft:'85px'}} >{this.state.detailData.date}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>empId</span>
+                <span style={{marginLeft:'42px'}}>{this.state.detailData.comments}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>dsi</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>SourcecottonType</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>ssname</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>sdname</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>TargetcottonType</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>tsn</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>tbn</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>ctd</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>rtn</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>DependencyempIds</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>NextempId</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>ResultLocationType</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>SchemaName</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+
+          </div>  
+
+          
+            <div style={{paddingTop:'4px'}}>
+                <span 
+                id='he1'
+                style={{
+                  marginLeft: '45%',
+                  fontWeight: 'bolder',
+                  fontSize: '30px',
+                  cursor:'pointer'
+                }}
+                
+                > SOD</span>
+            
+            </div>
+          <div className='detailInnerDiv' style={{background:'#e2ddf0',paddingTop:'22px',paddingBottom:'22px',marginTop:'77px'}}>    
+            <div style={{marginLeft:'50px'}}>
+                <span >1</span>
+                <span style={{marginLeft:'100px'}}>{this.state.detailData.id}</span>            
+            </div> 
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>2</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.name}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>3</span>
+                <span style={{marginLeft:'85px'}} >{this.state.detailData.date}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span style={{}}>4</span>
+                <span style={{marginLeft:'42px'}}>{this.state.detailData.comments}</span>            
+            </div>
+
+              <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>5</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>6</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+            <div style={{marginTop:'15px',marginLeft:'50px'}}>
+                <span>7</span>
+                <span style={{marginLeft:'76px'}}>{this.state.detailData.status}</span>            
+            </div>
+
+          </div> 
+          
+             
 
 
 
@@ -590,7 +957,24 @@ else if((in5) === "active")
                     }}
                     style={{width: '158.2px'}}
                   />
-              </MuiPickersUtilsProvider>
+              </MuiPickersUtilsProvider> 
+            </div>
+
+            <div style={{marginLeft:'5%',marginTop:'15px',cursor:'pointer'}} className='text4'>
+                    {this.state.userData.map((data)=>{
+                      return(
+                        <div>
+
+                            
+                            <span> User Name</span>
+                            <br/>
+                            <span id='he' style={{fontSize:'15px',fontWeight:'bolder'}}>{data.name}</span>
+                          
+                        </div>
+                      )
+                    })}
+                    
+              
             </div>
            
          </div> 
@@ -605,7 +989,7 @@ else if((in5) === "active")
                     onChange={(event)=>{
                       this.setState({
                       in5:event.target.value})
-                    console.log(event.target.value)
+          //          console.log(event.target.value)
                     }}
                     SelectProps={{
                       MenuProps: {

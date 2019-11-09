@@ -5,7 +5,39 @@ id: 1000,
 date:'22-4-2019',
 comments:'example1',
 status:'approved',
-name:'testing'
+name:'testing',
+"empPacket": [
+  {
+    "id": 4,
+    "ParentempId": 5,
+    "PrimarycompanyId": 6,
+    "PrimarycompanyName": 7,
+    "Name": "kkk",
+    "User": "sdsd",
+    "empPacketStatus": "kkk",
+    "RetrieveDate": "24-5-2019",
+    "IsCleanedUp": true,
+    "IsEmailSent": true,
+    "cardOutputType": "ss",
+    "cardType": "ss",
+    "st": 8,
+    "SendEmail": "sdsd",
+    "SubmitDate": "25-4-2019",
+    "PacketCreatedDate": "24-4-2014",
+    "Comments": [
+      "ho",
+      "hey"
+    ],
+    "cardName": "GOOD CARD",
+    "MQR": "white",
+    "rspn": "grey",
+    "iri": "s",
+    "employees": [
+      "sdsds",
+      "sdsds"
+    ]
+  }
+]
 },
 {
         id: 2000,
